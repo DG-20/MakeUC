@@ -1,6 +1,6 @@
 from datetime import datetime, date, time, timedelta
 from django.conf import settings
-from users.models import UserProfile
+from student_portal.models import UserProfile
 from api.models import Invoicing
 from .get_client import client, OPERATOR_ID, OPERATOR_KEY, config_user_client
 import time
@@ -12,11 +12,12 @@ from hedera import (
     Client,
     AccountBalanceQuery,
     TransferTransaction,
-    AccountCreateTransaction,
+    AccountCreateTransaction
 )
 
 
 class UserClientMixin:
+
     def __init__(self, *args, **kwargs):
         self.user = kwargs.get("user")
         self.up = self.user.userprofile
@@ -27,9 +28,9 @@ class UserClientMixin:
 
 
 class HederaAccount:
-    """
+    '''
     Manages the creation of a Hedera user account
-    """
+    '''
 
     def __init__(self, user):
 
@@ -40,7 +41,8 @@ class HederaAccount:
         tran = AccountCreateTransaction()
 
         # need a certain number of hbars, otherwise it can not be deleted later
-        resp = tran.setKey(self.public).setInitialBalance(Hbar(1000)).execute(client)
+        resp = tran.setKey(self.public).setInitialBalance(
+            Hbar(1000)).execute(client)
         receipt = resp.getReceipt(client)
 
         acc_id = receipt.accountId.toString()
@@ -52,6 +54,7 @@ class HederaAccount:
 
 
 class HederaPayment(UserClientMixin):
+
     def create(self):
 
         # convert millibar to tinybar
@@ -60,13 +63,11 @@ class HederaPayment(UserClientMixin):
         amount = Hbar.fromTinybars(int(tinybar_conversion))
         acc_id = AccountId.fromString(self.up.acc)
 
-        resp = (
-            TransferTransaction()
-            .addHbarTransfer(acc_id, amount.negated())
-            .addHbarTransfer(OPERATOR_ID, amount)
-            .setTransactionMemo(self.description)
-            .execute(self.client)
-        )  # notice that we are using self.client from __init_ the transaction must have the sender signiture!!
+        resp = TransferTransaction(
+        ).addHbarTransfer(acc_id, amount.negated()
+                          ).addHbarTransfer(OPERATOR_ID, amount
+                                            ).setTransactionMemo(self.description
+                                                                 ).execute(self.client)  # notice that we are using self.client from __init_ the transaction must have the sender signiture!!
 
         status = resp.getReceipt(self.client).status.toString()
 
@@ -83,17 +84,13 @@ class HederaPayment(UserClientMixin):
 
 class HederaData(UserClientMixin):
 
-    """
+    '''
     Produces and returns a list of cards assigned to each user
-    """
+    '''
 
     def balance(self):
 
         acc_id = AccountId.fromString(self.up.acc)
-        balance = (
-            AccountBalanceQuery()
-            .setAccountId(acc_id)
-            .execute(self.client)
-            .hbars.toString()
-        )
+        balance = AccountBalanceQuery().setAccountId(
+            acc_id).execute(self.client).hbars.toString()
         return balance
