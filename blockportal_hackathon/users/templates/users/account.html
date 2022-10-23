@@ -10,7 +10,8 @@
 {% block extend_nav %}
 
 <ul class="sidenav">
-  <li><a class="active" href="{% url 'users:account' %}">Student Account Details</a></li>
+  <li><a class="active" href="{% url 'users:account' %}" style="background-color: #1434A4">Student Account Details</a>
+  </li>
   <li><a href="{% url 'api:student_portal' %}">View Invoice History</a></li>
   <li><a href="{% url 'api:student_portal' %}">Student Registration Portal</a></li>
   <li><a href="{% url 'users:sign-out' %}">Sign out</a></li>
@@ -21,7 +22,7 @@
 
 {% block content %}
 
-<h3>Django Hedera Hashgraph API Demo - User Account</h3>
+<h3>Block Portal - User Account</h3>
 
 <div class="container">
 
@@ -29,22 +30,22 @@
   <table>
     <thead>
       <tr>
-        <th>Field</th>
-        <th></th>
+        <th style="background-color: #1434A4">Field</th>
+        <th style="background-color: #1434A4"></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>Username</td>
-        <td>{{request.user.username}}</td>      
+        <td>{{request.user.username}}</td>
       </tr>
       <tr>
         <td>Name</td>
-        <td>{{request.user.first_name}} {{request.user.last_name}}</td>      
+        <td>{{request.user.first_name}} {{request.user.last_name}}</td>
       </tr>
       <tr>
         <td>Telephone</td>
-        <td>{{request.user.userprofile.telephone}}</td>      
+        <td>{{request.user.userprofile.telephone}}</td>
       </tr>
       <tr>
         <td>Address</td>
@@ -55,12 +56,12 @@
             {{request.user.userprofile.county}}<br>
             {{request.user.userprofile.post_code}}<br>
           </address>
-        </td>      
+        </td>
       </tr>
 
       <tr>
         <td>Balance</td>
-        <td>{{balance}}</td>      
+        <td>{{balance}}</td>
       </tr>
 
     </tbody>
@@ -73,14 +74,14 @@
   <table>
     <thead>
       <tr>
-          <th hidden>ID</th>
-          <th>ID</th>
-          <th>Date</th>
-          <th>Description</th>
-          <th>Amount</th>
+        <th hidden>ID</th>
+        <th style="background-color: #1434A4">ID</th>
+        <th style="background-color: #1434A4">Date</th>
+        <th style="background-color: #1434A4">Description</th>
+        <th style="background-color: #1434A4">Amount</th>
 
       </tr>
-      
+
     </thead>
     <tbody>
       {% for tran in transactions %}
