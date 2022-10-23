@@ -1,78 +1,75 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- visit https://fonts.google.com/specimen/Courier+Prime?preview.text_type=custom to get script-->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="{% static 'main.css' %}" />
-    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
-    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css"
-    />
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- This allows us to extend the head scripts in HTML docs that have special requirements-->
-    {% block extend_head %} {% endblock %}
-  </head>
-  <body>
-    {% block extend_nav %}
-    <ul class="sidenav">
-        <li><a href="{% url 'users:account' %}">Student Account Details</a></li>
-        <li><a href="{% url 'api:student_portal' %}">View Invoice History</a></li>
-        <li><a class="active" href="{% url 'api:student_portal' %}">Student Registration Portal</a></li>
-        <li><a href="{% url 'users:sign-out' %}">Sign out</a></li>
-      </ul>
-    {% endblock %}
+  <!-- visit https://fonts.google.com/specimen/Courier+Prime?preview.text_type=custom to get script-->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'main.css' %}" />
+  <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+  <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css" />
 
-    <div class="div-container">
-      <div class="container">
-        <h3 style="text-align: center;">This is the amount of hbar you have remaining in your Hedera account:</h3>
-        <h2 style="text-align: center;">{{balance}}</h2>
-      </div>
-      <h1 style="text-align: center;">Available Course Options:</h1>
-      {% for course in courses %}
-      <form action="student_portal" method="POST" style="border: 2px solid black; border-radius: 15px;">
-        {% csrf_token %}
-        <input type="text" disabled name="className"><b>Course Name: </b>{{course.className}}</input>
-        <input type="text" disabled name="lab"><b>Lab? </b>{{course.lab}}</input>
-        <input type="text" disabled name="tutorial"><b>Tutorial? </b>{{course.tutorial}}</input>
-        <input type="text" disabled name="prof"><b>Professor's Name: </b>{{course.professorName}}</input>
-        <input type="text" disabled name="section"><b>Section Number: </b>{{course.section}}</input>
-        <input type="text" disabled name="numEnrolled">
-          <b>Number of Students Currently Enrolled: </b>{{course.numStudentsEnrolled}}
-        </input>
-        <input type="text" disabled name="location"><b>Class Location: </b>{{course.location}}</input>
-        <input type="text" disabled name="sems">
-          <b>Semesters Available: </b> {% for sem in course.semestersAvailable%} {{sem}}&nbsp; {% endfor %}
-        </input>
-        <input type="text" disabled name="cost"><b>Cost of Course: </b>{{course.cost}}mℏ</input>
-        <div style="text-align: center;">
-        <input type="submit" onclick="payWithHbar('{{course.className}}', '{{course.cost}}')" style="border-radius: 15px; background-color: #104a8e; color: white; padding: 10px;" value="Register in This Class!" /></div>
-        <br />
-      </form>
-      <br />
-      {% endfor %} 
-      {% block content %} {% endblock %}
+  <!-- This allows us to extend the head scripts in HTML docs that have special requirements-->
+  {% block extend_head %} {% endblock %}
+</head>
+
+<body>
+  {% block extend_nav %}
+  <ul class="sidenav">
+    <li><a href="{% url 'users:account' %}" style="background-color: #1434A4">Student Account Details</a></li>
+    <li><a href="{% url 'api:student_portal' %}">View Invoice History</a></li>
+    <li><a class="active" href="{% url 'api:student_portal' %}">Student Registration Portal</a></li>
+    <li><a href="{% url 'users:sign-out' %}">Sign out</a></li>
+  </ul>
+  {% endblock %}
+
+  <div class="div-container">
+    <div class="container">
+      <h3 style="text-align: center;">This is the amount of hbar you have remaining in your Hedera account:</h3>
+      <h2 style="text-align: center;">{{balance}}</h2>
     </div>
+    <h1 style="text-align: center;">Available Course Options:</h1>
+    {% for course in courses %}
+    <form action="student_portal" method="POST" style="border: 2px solid black; border-radius: 15px;">
+      {% csrf_token %}
+      <input type="text" disabled name="className"><b>Course Name: </b>{{course.className}}</input>
+      <input type="text" disabled name="lab"><b>Lab? </b>{{course.lab}}</input>
+      <input type="text" disabled name="tutorial"><b>Tutorial? </b>{{course.tutorial}}</input>
+      <input type="text" disabled name="prof"><b>Professor's Name: </b>{{course.professorName}}</input>
+      <input type="text" disabled name="section"><b>Section Number: </b>{{course.section}}</input>
+      <input type="text" disabled name="numEnrolled">
+      <b>Number of Students Currently Enrolled: </b>{{course.numStudentsEnrolled}}
+      </input>
+      <input type="text" disabled name="location"><b>Class Location: </b>{{course.location}}</input>
+      <input type="text" disabled name="sems">
+      <b>Semesters Available: </b> {% for sem in course.semestersAvailable%} {{sem}}&nbsp; {% endfor %}
+      </input>
+      <input type="text" disabled name="cost"><b>Cost of Course: </b>{{course.cost}}mℏ</input>
+      <div style="text-align: center;">
+        <input type="submit" onclick="payWithHbar('{{course.className}}', '{{course.cost}}')"
+          style="border-radius: 15px; background-color: #1434A4; color: white; padding: 10px;"
+          value="Register in This Class!" />
+      </div>
+      <br />
+    </form>
+    <br />
+    {% endfor %}
+    {% block content %} {% endblock %}
+  </div>
 
-    <!--visit https://code.jquery.com/ for jquery script-->
-    <script
-      src="https://code.jquery.com/jquery-3.6.0.min.js"
-      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-      crossorigin="anonymous"
-    ></script>
+  <!--visit https://code.jquery.com/ for jquery script-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-    <!-- This allows us to extend the foot scripts in HTML docs that have special requirements-->
-    {% block extend_footer %} {% endblock %}
+  <!-- This allows us to extend the foot scripts in HTML docs that have special requirements-->
+  {% block extend_footer %} {% endblock %}
 
-    <script src="{% static 'main.js' %}"></script>
-  </body>
+  <script src="{% static 'main.js' %}"></script>
+</body>
+
 </html>
