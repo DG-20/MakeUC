@@ -1,0 +1,64 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+
+{% block extend_head %}
+
+{% endblock %}
+
+
+{% block extend_nav %}
+
+<ul class="sidenav">
+  <li><a href="{% url 'users:account' %}">Student Account Details</a>
+  </li>
+  <li><a class="active" href="{% url 'api:transactions' %}" style="background-color: #1434A4">View Invoice History</a></li>
+  <li><a href="{% url 'api:student_portal' %}">Student Registration Portal</a></li>
+  <li><a href="{% url 'users:sign-out' %}">Sign out</a></li>
+</ul>
+
+{% endblock %}
+
+
+{% block content %}
+
+<h2 style="text-align: center;">BlockPortal - Transaction History</h2>
+
+<div class="container">
+  {% if transactions %}
+  <h4>Invoices</h4>
+  <table>
+    <thead>
+      <tr>
+        <th hidden>ID</th>
+        <th style="background-color: #1434A4">ID</th>
+        <th style="background-color: #1434A4">Date</th>
+        <th style="background-color: #1434A4">Description</th>
+        <th style="background-color: #1434A4">Amount</th>
+
+      </tr>
+
+    </thead>
+    <tbody>
+      {% for tran in transactions %}
+      <tr>
+        <td hidden>{{tran.id}}</td>
+        <td>{{tran.tran_id}}</td>
+        <td>{{tran.timestamp.date}}</td>
+        <td>{{tran.description}}</td>
+        <td>{{tran.amount}} tinybar</td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+</div>
+
+{% endblock %}
+
+
+{% block extend_footer %}
+
+{% endblock %}

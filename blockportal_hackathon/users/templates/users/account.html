@@ -12,7 +12,7 @@
 <ul class="sidenav">
   <li><a class="active" href="{% url 'users:account' %}" style="background-color: #1434A4">Student Account Details</a>
   </li>
-  <li><a href="{% url 'api:student_portal' %}">View Invoice History</a></li>
+  <li><a href="{% url 'api:transactions' %}">View Invoice History</a></li>
   <li><a href="{% url 'api:student_portal' %}">Student Registration Portal</a></li>
   <li><a href="{% url 'users:sign-out' %}">Sign out</a></li>
 </ul>
@@ -22,7 +22,7 @@
 
 {% block content %}
 
-<h3>Block Portal - User Account</h3>
+<h3>BlockPortal - User Account</h3>
 
 <div class="container">
 
@@ -66,38 +66,6 @@
 
     </tbody>
   </table>
-
-
-
-  {% if transactions %}
-  <h4>Invoices</h4>
-  <table>
-    <thead>
-      <tr>
-        <th hidden>ID</th>
-        <th style="background-color: #1434A4">ID</th>
-        <th style="background-color: #1434A4">Date</th>
-        <th style="background-color: #1434A4">Description</th>
-        <th style="background-color: #1434A4">Amount</th>
-
-      </tr>
-
-    </thead>
-    <tbody>
-      {% for tran in transactions %}
-      <tr>
-        <td hidden>{{tran.id}}</td>
-        <td>{{tran.tran_id}}</td>
-        <td>{{tran.timestamp.date}}</td>
-        <td>{{tran.description}}</td>
-        <td>{{tran.amount}} tinybar</td>
-
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% endif %}
-
 </div>
 
 {% endblock %}

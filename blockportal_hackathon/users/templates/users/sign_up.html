@@ -9,8 +9,8 @@
 {% block extend_nav %} 
 
 <ul class="sidenav">
-  <li><a class="active" href="{% url 'users:sign-in' %}">Block Portal Sign In</a></li>
-  <li><a href="{% url 'users:sign-up' %}">Sign Up for Block Portal</a></li>
+  <li><a href="{% url 'users:sign-in' %}">BlockPortal Sign In</a></li>
+  <li><a class="active" style="background-color: #1434A4" href="{% url 'users:sign-up' %}">Sign Up for BlockPortal</a></li>
 </ul>
 
 {% endblock %}
@@ -18,7 +18,7 @@
 
 {% block content %}
 
-<h3>Django Hedera Hashgraph API Demo - Sign Up</h3>
+<h3>BlockPortal Sign Up</h3>
 
 <div class="container">
 
@@ -52,7 +52,7 @@
    <label for="town">Town/City</label>
    {{up_form.town}}
 
-   <label for="county">County</label>
+   <label for="county">Country</label>
    {{up_form.county}}
 
    <label for="post_code">Postal Code</label>
@@ -61,7 +61,7 @@
    <label for="telephone">Telephone</label>
    {{up_form.telephone}}
 
-   <button type="submit">Sign up</button>
+   <button style="background-color: #1434A4" type="submit">Sign up</button>
  </form>
 
  {{u_form.errors}}

@@ -42,7 +42,7 @@ def student_portal(request):
         context["courses"] = list(courses)
         return render(request, "student_portal.html", context)
     else:
-		
+
         return redirect("users:account")
 
 
@@ -87,3 +87,13 @@ def payment(request):
 
         data = {"result": "Error"}
         return JsonResponse(data)
+
+
+@login_required
+def transactions(request):
+    user = request.user
+    # get transactions
+    transactions = Invoicing.objects.filter(user=user)
+    context = {}
+    context["transactions"] = transactions
+    return render(request, "transactions.html", context)

@@ -1,5 +1,5 @@
 body {
-  font-family: 'Courier Prime', monospace;
+  font-family: "Courier Prime", monospace;
 }
 
 * {
@@ -7,7 +7,6 @@ body {
 }
 
 body {
-
   margin: 0;
 }
 
@@ -25,7 +24,7 @@ ul.sidenav {
   margin: 0;
   padding: 0;
   width: 25%;
-  background-color: #080101;
+  background-color: #ccc;
   position: fixed;
   height: 100%;
   overflow: auto;
@@ -49,7 +48,6 @@ ul.sidenav li a:hover:not(.active) {
 }
 
 .div-container {
-
   margin-left: 25%;
   padding: 1px 16px;
   height: 1000px;
@@ -79,9 +77,9 @@ ul.sidenav li a:hover:not(.active) {
   }
 }
 
-input[type=text],
-input[type=email],
-input[type=password],
+input[type="text"],
+input[type="email"],
+input[type="password"],
 select,
 textarea {
   width: 100%;
@@ -94,22 +92,21 @@ textarea {
   resize: vertical;
 }
 
-
 ::-webkit-input-placeholder {
   /* Edge */
   color: #9c07b6;
-  font-family: 'Courier Prime', monospace;
+  font-family: "Courier Prime", monospace;
 }
 
 :-ms-input-placeholder {
   /* Internet Explorer */
   color: #9c07b6;
-  font-family: 'Courier Prime', monospace;
+  font-family: "Courier Prime", monospace;
 }
 
 ::placeholder {
-  color: #9c07b6;
-  font-family: 'Courier Prime', monospace;
+  color: #1434a4;
+  font-family: "Courier Prime", monospace;
 }
 
 /* The container */
@@ -145,13 +142,13 @@ textarea {
 }
 
 /* On mouse-over, add a grey background color */
-.check-container:hover input~.checkmark {
+.check-container:hover input ~ .checkmark {
   background-color: #ccc;
 }
 
 /* When the checkbox is checked, add a green background */
-.check-container input:checked~.checkmark {
-  background-color: #1434A4;
+.check-container input:checked ~ .checkmark {
+  background-color: #1434a4;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -162,7 +159,7 @@ textarea {
 }
 
 /* Show the checkmark when checked */
-.check-container input:checked~.checkmark:after {
+.check-container input:checked ~ .checkmark:after {
   display: block;
 }
 
@@ -179,7 +176,7 @@ textarea {
   transform: rotate(45deg);
 }
 
-button[type=submit] {
+button[type="submit"] {
   background-color: #9c07b6;
   color: white;
   padding: 12px 20px;
@@ -188,7 +185,7 @@ button[type=submit] {
   cursor: pointer;
 }
 
-button[type=submit]:hover {
+button[type="submit"]:hover {
   background-color: #730786;
 }
 
@@ -199,7 +196,7 @@ button[type=submit]:hover {
 }
 
 table {
-  font-family: 'Courier Prime', monospace;
+  font-family: "Courier Prime", monospace;
   border-collapse: collapse;
   width: 100%;
 }
@@ -224,7 +221,7 @@ table th {
 
 .selected {
   background-color: #730786;
-  color: #FFF;
+  color: #fff;
 }
 
 #payment-form {
