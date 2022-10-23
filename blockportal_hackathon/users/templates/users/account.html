@@ -10,8 +10,9 @@
 {% block extend_nav %}
 
 <ul class="sidenav">
-  <li><a class="active" href="{% url 'users:account' %}">Demo User Account</a></li>
-  <li><a href="{% url 'api:cart' %}">Demo Cart</a></li>
+  <li><a class="active" href="{% url 'users:account' %}">Student Account Details</a></li>
+  <li><a href="{% url 'api:student_portal' %}">View Invoice History</a></li>
+  <li><a href="{% url 'api:student_portal' %}">Student Registration Portal</a></li>
   <li><a href="{% url 'users:sign-out' %}">Sign out</a></li>
 </ul>
 

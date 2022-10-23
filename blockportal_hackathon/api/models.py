@@ -15,7 +15,7 @@ class Invoicing(models.Model):
 
 	@property
 	def AmountConversion(self):
-		return self.amount / 100_000
+		return self.amount
 
 	def __str__(self):
 		return f'{self.user}'

@@ -24,6 +24,7 @@ function CustomFormSubmitResponse(e){
 
 
 function payWithHbar(description, amount){
+  window.alert("You have successfully registered in " + description + "!")
     CustomFormSubmitPost($('.use-hbar'));
     $.ajax({
         method: "POST",

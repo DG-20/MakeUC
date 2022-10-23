@@ -32,15 +32,18 @@ class CartView(TemplateView):
 
 @login_required
 def student_portal(request):
-    user = request.user
-    hedera_data = HederaData(user=user)
-    context = {}
-    context["balance"] = hedera_data.balance()
-    db_access = MongoClient(HOST_LINK).block
-    val = db_access.Classes.find({})
-    for docu in val:
-        print(docu)
-    return render(request, "student_portal.html", context)
+    if request.method != "POST":
+        user = request.user
+        hedera_data = HederaData(user=user)
+        context = {}
+        context["balance"] = hedera_data.balance()
+        db_access = MongoClient(HOST_LINK).block
+        courses = db_access.Classes.find({})
+        context["courses"] = list(courses)
+        return render(request, "student_portal.html", context)
+    else:
+		
+        return redirect("users:account")
 
 
 @login_required
