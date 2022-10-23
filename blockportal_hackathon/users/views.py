@@ -20,10 +20,7 @@ from .forms import (
     AuthForm,
 )
 
-from api.mixins import (
-    HederaAccount,
-    HederaData
-)
+from api.mixins import HederaAccount, HederaData
 
 from api.models import Invoicing
 
@@ -33,17 +30,17 @@ message = "Something went wrong. Please check and try again"
 
 
 def is_ajax_true(request):
-    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+    return request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest"
 
 
 def sign_up(request):
-    '''
+    """
     Basic view for user sign up
-    '''
+    """
 
     # redirect if user is already signed in
     if request.user.is_authenticated:
-        return redirect(reverse('users:account'))
+        return redirect(reverse("users:account"))
 
     u_form = UserForm()
     up_form = UserProfileForm()
@@ -71,62 +68,65 @@ def sign_up(request):
             result = "Success"
             message = "Your profile is now active"
         else:
+            result = "Error"
             message = FormErrors(u_form, up_form)
 
-        data = {'result': result, 'message': message}
+        data = {"result": result, "message": message}
         return JsonResponse(data)
 
-    context = {'u_form': u_form, 'up_form': up_form}
-    return render(request, 'users/sign_up.html', context)
+    context = {"u_form": u_form, "up_form": up_form}
+    return render(request, "users/sign_up.html", context)
 
 
 def sign_in(request):
-    '''
+    """
     Basic view for user sign in
-    '''
+    """
 
     # redirect if user is already signed in
     if request.user.is_authenticated:
-        return redirect(reverse('users:account'))
+        return redirect(reverse("users:account"))
 
     a_form = AuthForm()
 
     if is_ajax_true(request=request):
         a_form = AuthForm(data=request.POST)
         if a_form.is_valid():
-            username = a_form.cleaned_data.get('username')
-            password = a_form.cleaned_data.get('password')
+            username = a_form.cleaned_data.get("username")
+            password = a_form.cleaned_data.get("password")
 
             # authenticate Django built in authenticate - https://docs.djangoproject.com/en/3.1/ref/contrib/auth/
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                message = 'You are now logged in'
+                message = "You are now logged in"
                 result = "Success"
 
         else:
+            result = "failed"
             message = FormErrors(a_form)
 
-        data = {'result': result, 'message': message}
+        data = {"result": result, "message": message}
         return JsonResponse(data)
 
-    context = {'a_form': a_form}
-    return render(request, 'users/sign_in.html', context)
+    context = {"a_form": a_form}
+    return render(request, "users/sign_in.html", context)
 
 
 def sign_out(request):
-    '''
+    """
     Basic view for user sign out
-    '''
+    """
     logout(request)
-    return redirect(reverse('users:sign-in'))
+    return redirect(reverse("users:sign-in"))
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class AccountView(TemplateView):
-    '''
+    """
     Basic template view to render a demo user account
-    '''
+    """
+
     template_name = "users/account.html"
 
     def get_context_data(self, **kwargs):
